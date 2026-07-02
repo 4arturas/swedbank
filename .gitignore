@@ -1,0 +1,26 @@
+# Maven
+backend/target/
+*.jar
+*.war
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# IDE - IntelliJ
+.idea/workspace.xml
+.idea/tasks/
+.idea/shelf/
+.idea/dataSources/
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/*.iml
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
