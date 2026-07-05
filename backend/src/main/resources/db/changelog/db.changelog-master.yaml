@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: 001-initial-schema.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 002-seed-data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 003-currencies-and-rates.yaml
+      relativeToChangelogFile: true

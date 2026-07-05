@@ -1,5 +1,6 @@
 package com.swedbank.bank.model;
 
+import com.swedbank.bank.config.LocalDateTimeConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,24 +24,24 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    private String type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_code", nullable = false)
+    private TransactionType type;
 
     private BigDecimal amount;
-
-    private String currency;
 
     private BigDecimal balanceBefore;
 
     private BigDecimal balanceAfter;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime timestamp;
 
-    public Transaction(Account account, String type, BigDecimal amount, String currency,
+    public Transaction(Account account, TransactionType type, BigDecimal amount,
                        BigDecimal balanceBefore, BigDecimal balanceAfter) {
         this.account = account;
         this.type = type;
         this.amount = amount;
-        this.currency = currency;
         this.balanceBefore = balanceBefore;
         this.balanceAfter = balanceAfter;
         this.timestamp = LocalDateTime.now();

@@ -1,0 +1,148 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: sweedbank
+      comment: Create currencies table (code as PK)
+      changes:
+        - createTable:
+            tableName: currencies
+            remarks: Supported currencies
+            columns:
+              - column:
+                  name: code
+                  type: varchar(10)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: sweedbank
+      comment: Create users table
+      changes:
+        - createTable:
+            tableName: users
+            remarks: Bank users
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+
+  - changeSet:
+      id: 3
+      author: sweedbank
+      comment: Create accounts table with currency FK
+      changes:
+        - createTable:
+            tableName: accounts
+            remarks: User bank accounts
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_accounts_user
+                    references: users(id)
+              - column:
+                  name: currency_code
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_accounts_currency
+                    references: currencies(code)
+              - column:
+                  name: balance
+                  type: decimal(19,2)
+                  defaultValueNumeric: 0
+
+  - changeSet:
+      id: 4
+      author: sweedbank
+      comment: Create transaction_types table (code as PK)
+      changes:
+        - createTable:
+            tableName: transaction_types
+            remarks: Types of account transactions
+            columns:
+              - column:
+                  name: code
+                  type: varchar(20)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 5
+      author: sweedbank
+      comment: Create transactions table
+      changes:
+        - createTable:
+            tableName: transactions
+            remarks: Account transaction history
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transactions_account
+                    references: accounts(id)
+              - column:
+                  name: type_code
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transactions_type
+                    references: transaction_types(code)
+              - column:
+                  name: amount
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance_before
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance_after
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: text
+                  constraints:
+                    nullable: false

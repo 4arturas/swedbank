@@ -1,0 +1,111 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: sweedbank
+      comment: Seed transaction_types
+      changes:
+        - insert:
+            tableName: transaction_types
+            columns:
+              - column:
+                  name: code
+                  value: DEPOSIT
+              - column:
+                  name: name
+                  value: Deposit
+        - insert:
+            tableName: transaction_types
+            columns:
+              - column:
+                  name: code
+                  value: DEBIT
+              - column:
+                  name: name
+                  value: Debit
+        - insert:
+            tableName: transaction_types
+            columns:
+              - column:
+                  name: code
+                  value: EXCHANGE_IN
+              - column:
+                  name: name
+                  value: Exchange In
+        - insert:
+            tableName: transaction_types
+            columns:
+              - column:
+                  name: code
+                  value: EXCHANGE_OUT
+              - column:
+                  name: name
+                  value: Exchange Out
+
+  - changeSet:
+      id: 7
+      author: sweedbank
+      comment: Seed currencies
+      changes:
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: EUR
+              - column:
+                  name: name
+                  value: Euro
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: USD
+              - column:
+                  name: name
+                  value: US Dollar
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: SEK
+              - column:
+                  name: name
+                  value: Swedish Krona
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: GBP
+              - column:
+                  name: name
+                  value: British Pound
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: VND
+              - column:
+                  name: name
+                  value: Vietnamese Dong
+
+  - changeSet:
+      id: 8
+      author: sweedbank
+      comment: Seed users
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Alice
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Bob

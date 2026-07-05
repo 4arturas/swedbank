@@ -21,6 +21,10 @@ frontend/.angular/
 # OS
 .DS_Store
 Thumbs.db
+nul
 
 # Logs
 *.log
+
+# Database
+*.db

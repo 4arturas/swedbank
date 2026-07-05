@@ -1,0 +1,286 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: sweedbank
+      comment: Create exchange_rates table
+      changes:
+        - createTable:
+            tableName: exchange_rates
+            remarks: Currency exchange rates
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: from_currency_code
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exchange_from
+                    references: currencies(code)
+              - column:
+                  name: to_currency_code
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exchange_to
+                    references: currencies(code)
+              - column:
+                  name: rate
+                  type: decimal(19,6)
+                  constraints:
+                    nullable: false
+            uniqueConstraints:
+              - uniqueConstraint:
+                  columnNames: from_currency_code, to_currency_code
+                  constraintName: uq_exchange_rate_pair
+
+  - changeSet:
+      id: 11
+      author: sweedbank
+      comment: Seed exchange rates
+      changes:
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'EUR'
+              - column:
+                  name: to_currency_code
+                  value: 'USD'
+              - column:
+                  name: rate
+                  value: 1.18
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'EUR'
+              - column:
+                  name: to_currency_code
+                  value: 'SEK'
+              - column:
+                  name: rate
+                  value: 10.50
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'EUR'
+              - column:
+                  name: to_currency_code
+                  value: 'GBP'
+              - column:
+                  name: rate
+                  value: 0.85
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'EUR'
+              - column:
+                  name: to_currency_code
+                  value: 'VND'
+              - column:
+                  name: rate
+                  value: 27000
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'USD'
+              - column:
+                  name: to_currency_code
+                  value: 'EUR'
+              - column:
+                  name: rate
+                  value: 0.85
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'USD'
+              - column:
+                  name: to_currency_code
+                  value: 'SEK'
+              - column:
+                  name: rate
+                  value: 8.90
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'USD'
+              - column:
+                  name: to_currency_code
+                  value: 'GBP'
+              - column:
+                  name: rate
+                  value: 0.72
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'USD'
+              - column:
+                  name: to_currency_code
+                  value: 'VND'
+              - column:
+                  name: rate
+                  value: 23000
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'SEK'
+              - column:
+                  name: to_currency_code
+                  value: 'EUR'
+              - column:
+                  name: rate
+                  value: 0.095
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'SEK'
+              - column:
+                  name: to_currency_code
+                  value: 'USD'
+              - column:
+                  name: rate
+                  value: 0.11
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'SEK'
+              - column:
+                  name: to_currency_code
+                  value: 'GBP'
+              - column:
+                  name: rate
+                  value: 0.081
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'SEK'
+              - column:
+                  name: to_currency_code
+                  value: 'VND'
+              - column:
+                  name: rate
+                  value: 2570
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'GBP'
+              - column:
+                  name: to_currency_code
+                  value: 'EUR'
+              - column:
+                  name: rate
+                  value: 1.18
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'GBP'
+              - column:
+                  name: to_currency_code
+                  value: 'USD'
+              - column:
+                  name: rate
+                  value: 1.39
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'GBP'
+              - column:
+                  name: to_currency_code
+                  value: 'SEK'
+              - column:
+                  name: rate
+                  value: 12.35
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'GBP'
+              - column:
+                  name: to_currency_code
+                  value: 'VND'
+              - column:
+                  name: rate
+                  value: 31765
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'VND'
+              - column:
+                  name: to_currency_code
+                  value: 'EUR'
+              - column:
+                  name: rate
+                  value: 0.000037
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'VND'
+              - column:
+                  name: to_currency_code
+                  value: 'USD'
+              - column:
+                  name: rate
+                  value: 0.000043
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'VND'
+              - column:
+                  name: to_currency_code
+                  value: 'SEK'
+              - column:
+                  name: rate
+                  value: 0.00039
+        - insert:
+            tableName: exchange_rates
+            columns:
+              - column:
+                  name: from_currency_code
+                  value: 'VND'
+              - column:
+                  name: to_currency_code
+                  value: 'GBP'
+              - column:
+                  name: rate
+                  value: 0.000031

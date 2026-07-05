@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Account } from '../models/account';
+import { ExchangeRate } from '../models/exchange-rate';
 import { Transaction } from '../models/transaction';
 
 @Injectable({ providedIn: 'root' })
@@ -47,5 +48,9 @@ export class ApiService {
 
   getTransaction(transactionId: number): Observable<Transaction> {
     return this.http.get<Transaction>(`${this.baseUrl}/transactions/${transactionId}`);
+  }
+
+  getExchangeRates(): Observable<ExchangeRate[]> {
+    return this.http.get<ExchangeRate[]>(`${this.baseUrl}/rates`);
   }
 }

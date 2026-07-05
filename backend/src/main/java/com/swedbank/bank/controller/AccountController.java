@@ -1,9 +1,11 @@
 package com.swedbank.bank.controller;
 
 import com.swedbank.bank.dto.AccountDto;
+import com.swedbank.bank.dto.ExchangeRateDto;
 import com.swedbank.bank.dto.ExchangeRequest;
 import com.swedbank.bank.dto.TransactionDto;
 import com.swedbank.bank.service.AccountService;
+import com.swedbank.bank.service.ExchangeRateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +19,13 @@ import java.util.List;
 public class AccountController {
 
     private final AccountService accountService;
+    private final ExchangeRateService exchangeRateService;
 
+
+    @GetMapping("/rates")
+    public List<ExchangeRateDto> getRates() {
+        return exchangeRateService.getAllRates();
+    }
 
     @GetMapping("/users/{userId}/accounts")
     public List<AccountDto> getAccounts(@PathVariable Long userId) {

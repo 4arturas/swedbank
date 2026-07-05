@@ -22,11 +22,13 @@ public class Account {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String currency;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "currency_code", nullable = false)
+    private Currency currency;
 
     private BigDecimal balance;
 
-    public Account(User user, String currency, BigDecimal balance) {
+    public Account(User user, Currency currency, BigDecimal balance) {
         this.user = user;
         this.currency = currency;
         this.balance = balance;
