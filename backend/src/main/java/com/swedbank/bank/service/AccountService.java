@@ -151,7 +151,6 @@ public class AccountService {
         );
     }
 
-    @Transactional(readOnly = true)
     public List<TransactionDto> getTransactionHistory(Long accountId, int page, int size) {
         Page<Transaction> transactions = transactionRepository
             .findByAccountIdOrderByTimestampDesc(accountId, PageRequest.of(page, size));
@@ -161,7 +160,6 @@ public class AccountService {
             .toList();
     }
 
-    @Transactional(readOnly = true)
     public TransactionDto getTransaction(Long transactionId) {
         Transaction t = transactionRepository.findById(transactionId)
             .orElseThrow(() -> new RuntimeException("Transaction not found"));
@@ -169,7 +167,6 @@ public class AccountService {
             t.getAccount().getCurrency().getCode(), t.getBalanceBefore(), t.getBalanceAfter(), t.getTimestamp());
     }
 
-    @Transactional(readOnly = true)
     public List<TransactionDto> getAllTransactionsForChart(Long accountId) {
         return transactionRepository.findByAccountIdOrderByTimestampAsc(accountId).stream()
             .map(t -> new TransactionDto(t.getId(), t.getAccount().getId(), t.getType().getCode(), t.getAmount(),
