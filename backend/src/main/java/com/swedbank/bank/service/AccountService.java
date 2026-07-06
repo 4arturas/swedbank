@@ -6,6 +6,7 @@ import com.swedbank.bank.model.Account;
 import com.swedbank.bank.model.Currency;
 import com.swedbank.bank.model.Transaction;
 import com.swedbank.bank.model.TransactionType;
+import com.swedbank.bank.model.TransactionTypeCode;
 import com.swedbank.bank.model.User;
 import com.swedbank.bank.repository.AccountRepository;
 import com.swedbank.bank.repository.CurrencyRepository;
@@ -58,8 +59,8 @@ public class AccountService {
         account = accountRepository.save(account);
 
         if (initialBalance.compareTo(BigDecimal.ZERO) > 0) {
-            TransactionType depositType = transactionTypeRepository.findById("DEPOSIT")
-                .orElseThrow(() -> new RuntimeException("Transaction type not found: DEPOSIT"));
+            TransactionType depositType = transactionTypeRepository.findById(TransactionTypeCode.DEPOSIT.name())
+                .orElseThrow(() -> new RuntimeException("Transaction type not found: " + TransactionTypeCode.DEPOSIT.name()));
             Transaction t = new Transaction(account, depositType, initialBalance,
                 BigDecimal.ZERO, initialBalance);
             transactionRepository.save(t);
@@ -76,8 +77,8 @@ public class AccountService {
         account.setBalance(before.add(amount));
         accountRepository.save(account);
 
-        TransactionType depositType = transactionTypeRepository.findById("DEPOSIT")
-            .orElseThrow(() -> new RuntimeException("Transaction type not found: DEPOSIT"));
+        TransactionType depositType = transactionTypeRepository.findById(TransactionTypeCode.DEPOSIT.name())
+            .orElseThrow(() -> new RuntimeException("Transaction type not found: " + TransactionTypeCode.DEPOSIT.name()));
         transactionRepository.save(new Transaction(account, depositType, amount,
             before, account.getBalance()));
 
@@ -101,8 +102,8 @@ public class AccountService {
         account.setBalance(before.subtract(amount));
         accountRepository.save(account);
 
-        TransactionType debitType = transactionTypeRepository.findById("DEBIT")
-            .orElseThrow(() -> new RuntimeException("Transaction type not found: DEBIT"));
+        TransactionType debitType = transactionTypeRepository.findById(TransactionTypeCode.DEBIT.name())
+            .orElseThrow(() -> new RuntimeException("Transaction type not found: " + TransactionTypeCode.DEBIT.name()));
         transactionRepository.save(new Transaction(account, debitType, amount,
             before, account.getBalance()));
 
@@ -132,16 +133,16 @@ public class AccountService {
         BigDecimal fromBefore = from.getBalance();
         from.setBalance(fromBefore.subtract(amount));
         accountRepository.save(from);
-        TransactionType exchangeOutType = transactionTypeRepository.findById("EXCHANGE_OUT")
-            .orElseThrow(() -> new RuntimeException("Transaction type not found: EXCHANGE_OUT"));
+        TransactionType exchangeOutType = transactionTypeRepository.findById(TransactionTypeCode.EXCHANGE_OUT.name())
+            .orElseThrow(() -> new RuntimeException("Transaction type not found: " + TransactionTypeCode.EXCHANGE_OUT.name()));
         transactionRepository.save(new Transaction(from, exchangeOutType, amount,
             fromBefore, from.getBalance()));
 
         BigDecimal toBefore = to.getBalance();
         to.setBalance(toBefore.add(converted));
         accountRepository.save(to);
-        TransactionType exchangeInType = transactionTypeRepository.findById("EXCHANGE_IN")
-            .orElseThrow(() -> new RuntimeException("Transaction type not found: EXCHANGE_IN"));
+        TransactionType exchangeInType = transactionTypeRepository.findById(TransactionTypeCode.EXCHANGE_IN.name())
+            .orElseThrow(() -> new RuntimeException("Transaction type not found: " + TransactionTypeCode.EXCHANGE_IN.name()));
         transactionRepository.save(new Transaction(to, exchangeInType, converted,
             toBefore, to.getBalance()));
 
