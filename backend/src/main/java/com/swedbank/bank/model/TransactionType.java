@@ -19,8 +19,4 @@ public class TransactionType {
     @Column(nullable = false)
     private String name;
 
-    public TransactionType(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
 }
